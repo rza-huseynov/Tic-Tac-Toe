@@ -68,8 +68,18 @@ def win_check() :
             cur &= (not board[i].isspace())
         cur &= (board[case[0]] == board[case[1]] and board[case[1]] == board[case[2]])
         ans |= cur
+        if (cur) :
+            print('The winning case is: {}'.format(case))
     
     return ans
+
+def tie_check() :
+    
+    for i in board :
+        if (i.isspace()) :
+            return False
+    
+    return True
 
 def replay() :
     
@@ -83,7 +93,6 @@ def replay() :
             print('Choose (Y or N)')
     
     return (choice == 'Y')
-
 
 # GAME ON!
 
@@ -109,19 +118,31 @@ while (gameon) :
     while (playon) :
         
         place_marker(player_one)
-    
+        
         have_winner = win_check()
         
         if (have_winner) :
             print('Congratulations! You win!')
             break
         
+        have_tie = tie_check()
+        
+        if (have_tie) :
+            print('TIE GAME!')
+            break
+         
         place_marker(player_two)
         
         have_winner = win_check()
         
         if (have_winner) :
             print('Congratulations! You win!')
+            break
+        
+        have_tie = tie_check()
+        
+        if (have_tie) :
+            print('TIE GAME!')
             break
             
     gameon = replay()
